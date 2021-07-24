@@ -1,23 +1,24 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, {useState, useEffect} from 'react';
 import './App.css';
+import axios from 'axios';
 
 function App() {
+  const [starWarsChar, setStarWarsChar] = useState({});
+
+  useEffect(() => {
+    axios.get('https://swapi.dev/api/people/2/')
+      .then(response => {
+        setStarWarsChar(response.data);
+      });
+  }, []);
+
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        <h3>Name: {starWarsChar.name}</h3>
+        <h3>Hair Color: {starWarsChar.hair_color}</h3>
+        <h3>Eye Color: {starWarsChar.eye_color}</h3>
+        <h3>Gender: {starWarsChar.gender}</h3>
       </header>
     </div>
   );

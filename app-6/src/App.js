@@ -1,23 +1,32 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, {useState} from 'react';
 import './App.css';
+import Todo from './Todo';
 
 function App() {
+  const [taskInput, setTaskInput] = useState('');
+  const [taskList, setTaskList] = useState([]);
+  
+  let list = taskList.map((element, index) => {
+    return <Todo key={index} task={element} />;
+  });
+
+function handleClick() {
+  setTaskList(oldTaskList => [...oldTaskList, taskInput])
+  setTaskInput('')
+}
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+      <input 
+            type="text" 
+            placeholder="Enter New Task!"  
+            value ={taskInput} 
+            onChange={(e) => setTaskInput(e.target.value)}
+        />
+        <button onClick={handleClick}>
+          Submit
+        </button>
+        {list}
       </header>
     </div>
   );
